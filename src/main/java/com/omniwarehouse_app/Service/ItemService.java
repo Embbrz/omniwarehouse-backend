@@ -48,7 +48,11 @@ public class ItemService {
 		
 		
 	}
-	
+	public Item deleteItemById(Long id) {
+		Item item = this.getItem(id);
+		itemrepo.deleteById(id);
+		return item;
+	}
 	public List<Item> getItemByName(String name) {
 		List<Item> items = itemrepo.findByitemName(name);
 		if (items.size() == 0) {
