@@ -28,6 +28,21 @@ public class ItemService {
 				.orElseThrow(() -> new RuntimeException("Item not found with " + id));
 	}
 	
+	public Item fullfillOrder(Long id, Integer quantity) {
+		
+		Item item = this.getItem(id);
+		
+		if (item.getQuantityAvailable() >= quantity) {
+			item.setQuantityAvailable(item.getQuantityAvailable() - quantity);
+			
+			return itemrepo.save(item);
+		}
+	
+		throw new RuntimeException("Only " + item.getQuantityAvailable() +" " + item.getItemName() +" Available");
+		
+		
+	}
+	
 
 
 }
