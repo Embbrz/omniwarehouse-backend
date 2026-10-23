@@ -23,6 +23,11 @@ public class ItemService {
 		return itemrepo.findAll(pageable);
 	}
 	
+	public Item getItem(Long id) {
+		return itemrepo.findById(id)
+				.orElseThrow(() -> new RuntimeException("Item not found with " + id));
+	}
+	
 
 
 }
