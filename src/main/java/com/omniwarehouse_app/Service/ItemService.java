@@ -1,5 +1,7 @@
 package com.omniwarehouse_app.Service;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,7 +10,10 @@ import org.springframework.stereotype.Service;
 import com.omniwarehouse_app.Entity.Item;
 import com.omniwarehouse_app.Repository.ItemRepo;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ItemService {
 	
 	
@@ -46,8 +51,22 @@ public class ItemService {
 	
 	public Item restockItem(Long id, Integer quantity) {
 		Item item = this.getItem(id);
-		
+		if ((quantity < 0)||(quantity > 200)) {
+			throw new RuntimeException("Invalid Amount to Add");
+		}
 		item.setQuantityAvailable(item.getQuantityAvailable() + quantity);
+		
+		return itemrepo.save(item);
+	}
+	
+	public Item addItem(String sku, String itemName, BigDecimal unitPrice, Integer quantity, String category) {
+		Item item = new Item();
+		item.setItemName(itemName);
+		item.setSku(sku);
+		item.setUnitPrice(unitPrice);
+		item.setQuantityAvailable(quantity);
+		item.setCategory(category);
+		
 		
 		return itemrepo.save(item);
 	}

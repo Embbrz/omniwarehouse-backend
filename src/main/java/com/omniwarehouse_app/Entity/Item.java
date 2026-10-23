@@ -39,5 +39,8 @@ public class Item {
 	
 	@Column(name = "quantity_available", nullable = false)
 	private Integer quantityAvailable;
+	
+	@Column(nullable = false)
+	private String category;
 
 }
