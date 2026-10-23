@@ -1,4 +1,6 @@
 package com.omniwarehouse_app.Controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,8 +39,12 @@ public class ItemController {
 		return this.itemService.getInventory(pageable);
 		
 	}
+	@GetMapping("/getItemName/{itemName}")
+	public List<Item> getItemByName(@PathVariable String itemName) {
+		return this.itemService.getItemByName(itemName);
+	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/getItem/{id}")
 	public Item getItem(@PathVariable Long id) {
 		return this.itemService.getItem(id);
 	}

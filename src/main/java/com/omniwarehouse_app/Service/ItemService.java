@@ -1,6 +1,7 @@
 package com.omniwarehouse_app.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,13 @@ public class ItemService {
 		
 	}
 	
+	public List<Item> getItemByName(String name) {
+		List<Item> items = itemrepo.findByitemName(name);
+		if (items.size() == 0) {
+			throw new RuntimeException("Item was Not found: " + name);
+		}
+		return items;
+	}
 	
 	public Item restockItem(Long id, Integer quantity) {
 		Item item = this.getItem(id);
