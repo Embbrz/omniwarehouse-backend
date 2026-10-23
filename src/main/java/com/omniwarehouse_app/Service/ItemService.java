@@ -43,6 +43,14 @@ public class ItemService {
 		
 	}
 	
+	
+	public Item restockItem(Long id, Integer quantity) {
+		Item item = this.getItem(id);
+		
+		item.setQuantityAvailable(item.getQuantityAvailable() + quantity);
+		
+		return itemrepo.save(item);
+	}
 
 
 }

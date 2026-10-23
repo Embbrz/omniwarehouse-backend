@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.omniwarehouse_app.Entity.Item;
 import com.omniwarehouse_app.Service.ItemService;
 import com.omniwarehouse_app.dto.FullFillRequest;
+import com.omniwarehouse_app.dto.restockRequest;
 
 
 @RestController
@@ -42,6 +43,11 @@ public class ItemController {
 	@PostMapping("/fulfill")
 	public Item fullfillOrder(@RequestBody FullFillRequest request) {
 		return this.itemService.fullfillOrder(request.itemId(), request.quantityRequested());
+	}
+	
+	@PostMapping("/restock")
+	public Item restockItem(@RequestBody restockRequest request) {
+		return this.itemService.restockItem(request.id(), request.quantity());
 	}
 		
 	
